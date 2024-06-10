@@ -1,0 +1,126 @@
+﻿@model QLKhachSan.ViewModels.Admin.PhongVM
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "ThemPhong";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="card-body">
+    <div class="basic-form">
+        <form id="addRoomForm" method="post" asp-action="ThemPhong" enctype="multipart/form-data">
+            <div class="text-danger">@TempData["Message"]</div>
+            <div class="mb-3">
+                <input hidden type="text" class="form-control" name="MaPhong" value="@ViewBag.NextMaPhong" readonly>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tên phòng</label>
+                <input type="text" class="form-control" name="TenPhong" placeholder="Tên phòng ..">
+                <span class="text-danger" id="TenPhongValidation"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MaKS" class="form-label">Tên KS</label>
+                <select id="MaKS" asp-for="MaKS" name="MaKS" class="default-select form-control wide mb-3" asp-items="ViewBag.MaKs">
+                    <option value="">Chọn Tên KS</option>
+                </select>
+                <span class="text-danger" id="MaKSValidation"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MaLP" class="form-label">Tên LP</label>
+                <select id="MaLP" asp-for="MaLP" name="MaLP" class="default-select form-control wide mb-3" asp-items="ViewBag.MaLp">
+                    <option value="">Chọn Tên LP</option>
+                </select>
+                <span class="text-danger" id="MaLPValidation"></span>
+            </div>
+            <div class="mb-3">
+                <label for="formFileSm" class="form-label">Ảnh đại diện</label>
+                <input class="form-control form-control-sm" name="Anh" id="formFileSm" type="file">
+                <span class="text-danger" id="AnhValidation"></span>
+            </div>
+            <div class="mb-3">
+                <label for="formFile1" class="form-label">Ảnh chi tiết phòng</label>
+                <input class="form-control form-control-sm" name="AnhDetail" id="formFile1" type="file" multiple>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Mô tả</label>
+                <textarea class="form-control" rows="8" name="MoTa" id="comment"></textarea>
+                <span class="text-danger" id="MoTaValidation"></span>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Thêm</button>
+        </form>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#MaKS').change(function () {
+            var selectedValue = $(this).val();
+            var url = '@Url.Action("ThemPhong", "PhongAdmin")' + '?maks=' + selectedValue;
+            console.log(selectedValue);
+            $.ajax({
+                url: '@Url.Action("ThemPhong", "PhongAdmin")',
+                type: 'GET',
+                data: { maks: selectedValue },
+                success: function (data) {
+                    window.location.href = url;
+                },
+                error: function () {
+                    alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+                }
+            });
+        });
+
+        $('#addRoomForm').submit(function (event) {
+            var isValid = true;
+
+            // Validate Tên phòng
+            var tenPhong = $('[name="TenPhong"]').val().trim();
+            if (tenPhong === "") {
+                $('#TenPhongValidation').text("Tên phòng không được để trống.");
+                isValid = false;
+            } else {
+                $('#TenPhongValidation').text("");
+            }
+
+            // Validate Tên KS
+            var maKS = $('#MaKS').val();
+            if (maKS === "") {
+                $('#MaKSValidation').text("Vui lòng chọn tên KS.");
+                isValid = false;
+            } else {
+                $('#MaKSValidation').text("");
+            }
+
+            // Validate Tên LP
+            var maLP = $('#MaLP').val();
+            if (maLP === "") {
+                $('#MaLPValidation').text("Vui lòng chọn tên LP.");
+                isValid = false;
+            } else {
+                $('#MaLPValidation').text("");
+            }
+
+            // Validate Ảnh đại diện
+            var anh = $('#formFileSm').val();
+            if (anh === "") {
+                $('#AnhValidation').text("Vui lòng chọn ảnh đại diện.");
+                isValid = false;
+            } else {
+                $('#AnhValidation').text("");
+            }
+
+            // Validate Mô tả
+            var moTa = $('[name="MoTa"]').val().trim();
+            if (moTa === "") {
+                $('#MoTaValidation').text("Mô tả không được để trống.");
+                isValid = false;
+            } else {
+                $('#MoTaValidation').text("");
+            }
+
+            // Prevent form submission if validation fails
+            if (!isValid) {
+                event.preventDefault();
+            }
+        });
+    });
+</script>

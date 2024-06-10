@@ -1,0 +1,25 @@
+﻿@model QLKhachSan.ViewModels.ThietBiVM
+@{
+    ViewData["Title"] = "SuaTB";
+    Layout = "_LayoutProfile";
+}
+<div class="card-body">
+    <div class="basic-form">
+        <form method="post" asp-action="SuaTB" enctype="multipart/form-data">
+            <div class="mb-3">
+                <input type="text" hidden class="form-control" asp-for="MaTB" value="@Model.MaTB" readonly>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tên thiết bị</label>
+                <input asp-for="TenTB" type="text" class="form-control" placeholder="Tên thiết bị ..">
+                <span class="text-danger" asp-validation-for="TenTB"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MaLP" class="form-label">Tên LP</label>
+                <select asp-for="MaLP" name="MaLP" class="default-select form-control wide mb-3" asp-items="ViewBag.MaLp"></select>
+                <span class="text-danger" asp-validation-for="MaLP"></span>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Lưu</button>
+        </form>
+    </div>
+</div>

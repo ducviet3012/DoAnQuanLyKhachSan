@@ -1,0 +1,57 @@
+﻿@model QLKhachSan.ViewModels.ThietBiVM
+@{
+    ViewData["Title"] = "ThemTB";
+    Layout = "_LayoutProfile";
+}
+
+<div class="personal__account-security container">
+    <div class="basic-form">
+        <form method="post" asp-action="ThemTB" enctype="multipart/form-data">
+            <div class="mb-3">
+                <input hidden type="text" class="form-control" name="MaTB" value="@ViewBag.NextMaTB" readonly>
+            </div>
+            <div class="mb-3">
+                <label class="form-label text-dark">Tên thiết bị</label>
+                <input type="text" class="form-control" asp-for="TenTB" placeholder="Tên thiết bị ..">
+                <span class="text-danger" asp-validation-for="TenTB"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MaKS" class="form-label text-dark">Tên KS</label>
+                <select id="MaKS" asp-for="MaKS" name="MaKS" class="default-select form-control wide mb-3" asp-items="ViewBag.MaKs">
+                    <option value="">Chọn Tên KS</option>
+                </select>
+                <span class="text-danger" asp-validation-for="MaKS"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="MaLP" class="form-label text-dark">Tên LP</label>
+                <select id="MaLP" asp-for="MaLP" name="MaLP" class="default-select form-control wide mb-3" asp-items="ViewBag.MaLp">
+                    <option value="">Chọn Tên LP</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Thêm</button>
+        </form>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#MaKS').change(function () {
+            var selectedValue = $(this).val();
+            var url = '@Url.Action("ThemTB", "DoanhNghiep")' + '?maks=' + selectedValue;
+            console.log(selectedValue);
+            $.ajax({
+                url: '@Url.Action("ThemTB", "DoanhNghiep")',
+                type: 'GET',
+                data: { maks: selectedValue },
+                success: function (data) {
+                    window.location.href = url;
+                },
+                error: function () {
+                    alert('Đã xảy ra lỗi khi gửi yêu cầu.');
+                }
+            });
+        });
+    });
+</script>
+
+

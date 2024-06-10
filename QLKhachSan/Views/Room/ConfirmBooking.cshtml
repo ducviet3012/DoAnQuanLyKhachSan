@@ -1,0 +1,108 @@
+﻿@model QLKhachSan.ViewModels.BookingVM
+@{
+    ViewData["Title"] = "ConfirmBooking";
+    Layout = "_LayoutCheckOut";
+}
+<div class="container">
+    <nav class="breadcrumb-nav d-flex align-items-center" aria-label="breadcrumb">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="under" href="index.html">Trang chủ</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><span>Xác nhận thông tin đặt phòng</span></li>
+            </ol>
+        </div>
+    </nav>
+    <div class="row">
+        <aside class="sidebar col-lg-3 order-1 order-lg-0">
+            <div class="sidebar__content js-sticky-top">
+                <section class="sidebar__card card">
+                    <ul class="sidebar__payment">
+                        <li class="d-inline-block align-top mr-5 mb-2">
+                            <div class="fw-bold">Tên phòng</div>
+                            <ul>
+                                <li>- @Model.tenphong </li>
+                            </ul>
+                        </li>
+                        <li class="d-inline-block align-top mr-5 mb-2">
+                            <div class="fw-bold">Ngày đến</div>
+                            <ul>
+                                <li>- @Model.ngayden</li>
+                            </ul>
+                        </li>
+                        <li class="d-inline-block align-top mr-5 mb-2">
+                            <div class="fw-bold">Ngày đi</div>
+                            <ul>
+                                <li>- @Model.ngaydi</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <hr class="mt-2">
+                    <ul class="sidebar__payment-total">
+                        <li class="h4 fw-bold f-primary mb-0">Tổng tiền: @Model.thanhtien VND</li>
+                    </ul>
+                </section>
+                <section class="sidebar__card card">
+                    <div class="sidebar__card-title">
+                        <h4 class="card-title mb-1">Cần trợ giúp đặt chỗ?</h4>
+                        <hr class="my-3 mt-2" />
+                    </div>
+                    <p>Hãy gọi cho nhóm dịch vụ khách hàng của chúng tôi theo số bên dưới để nói chuyện với một trong những cố vấn của chúng tôi, người sẽ giúp bạn đáp ứng mọi nhu cầu trong kỳ nghỉ của bạn.</p>
+                    <ul class="sidebar__contacts">
+                        <li class="d-flex align-items-center"><i class="icon icon-phone mr-2"></i><a class="fw-bold" href="tel:#">0903888888</a></li>
+                    </ul>
+                </section>
+            </div>
+        </aside>
+        <div class="col-lg-9 d-flex" id="barba-wrapper">
+            <div class="barba-container">
+                <div class="booking-card card">
+                    <div class="card-body">
+                        <div class="booking-card__title">
+                            <h2>Xác nhận đặt phòng</h2>
+                            <hr class="mb-4">
+                        </div>
+                        <div class="d-flex flex-wrap align-items-center mb-4">
+                            <p class="mark bg-primary-light mb-3">Cảm ơn. Việc đặt chỗ của bạn hiện đã được xác nhận.Vui lòng check email của bạn để kiểm tra thông tin đặt phòng</p>
+                        </div>
+                        <section class="mb-5">
+                            <h4>Thông tin khách hàng</h4>
+                            <div class="row">
+                                <div class="col-12 col-md-8">
+                                    <ul class="booking-card__checklist">
+                                        <li class="d-flex justify-content-between flex-wrap flex-column flex-sm-row mb-3">
+                                            <div class="fw-sm">Số điện thoại:</div><span>@Model.DienThoai</span>
+                                        </li>
+                                        <li class="d-flex justify-content-between flex-wrap flex-column flex-sm-row mb-3">
+                                            <div class="fw-sm">Họ tên:</div><span>@Model.HoTen</span>
+                                        </li>
+                                        <li class="d-flex justify-content-between flex-wrap flex-column flex-sm-row mb-3">
+                                            <div class="fw-sm">E-mail:</div><span>@Model.Email</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </section>
+                        <section class="mb-5">
+                            <h4>Thanh toán</h4>
+                            <p>Bây giờ bạn đã xác nhận và đảm bảo đặt phòng của mình bằng thẻ tín dụng. Tất cả các khoản thanh toán sẽ được thực hiện tại khách sạn trong thời gian lưu trú của bạn, trừ khi có quy định khác trong chính sách khách sạn hoặc trong điều kiện phòng. Xin lưu ý rằng thẻ tín dụng của bạn có thể được ủy quyền trước trước đến khi bạn đến.</p>
+                        </section>
+                        <div class="mb-5">
+                            <div class="fw-bold">Khách sạn này chấp nhận các hình thức thanh toán sau:</div>
+                            <ul>
+                                <li>Thẻ ngân hàng, thẻ tín dụng, tiền mặt</li>
+                            </ul>
+                        </div>
+                        <section>
+                            <h4>Hủy đặt phòng</h4>
+                            <p>
+                                Bạn có thể hủy đặt phòng trước 2 ngày nhận phòng. Để hủy đặt chỗ, vui lòng
+                                <a asp-controller="KhachHang" asp-action="LichSuDatPhong">vào đây.</a>
+                            </p>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
